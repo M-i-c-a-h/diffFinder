@@ -1,0 +1,3 @@
+rm runner
+g++ -std=c++17 app.cpp -o runner
+./runner
