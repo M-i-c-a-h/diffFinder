@@ -1,0 +1,3 @@
+rm display.out
+g++ display.cpp -o display.out -std=c++17 -lsfml-window -lsfml-system
+./display.out
