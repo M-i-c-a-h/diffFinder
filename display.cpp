@@ -13,13 +13,15 @@ static unsigned int VERTICAL = 80;
 enum Position{ LEFT, CENTER, RIGHT };
 
 void GetUserDesktopResolution();
-void setTerminalWidth();
+int getTerminalWidth();
 void printAlign( Position pos, std::string s );
+void printChunk(const std::string& str, int width);
+void printAligned(const std::string& lhs, const std::string& rhs);
 
 void startup()
 {
     //GetUserDesktopResolution();
-    setTerminalWidth();
+    //setTerminalWidth();
 }
 
 // create a single Horizontal border [---------] with ternimal size
@@ -33,15 +35,26 @@ void verticalBorder()
     std::cout << "||";
 }
 
-int main()
+
+int main2()
 {
     startup(); // function to prepare system settings
 
     horizontalBorder(); 
     horizontalBorder(); 
-    verticalBorder();   std::cout << std::endl;
-    verticalBorder();   printAlign( CENTER, "WELCOME TO DIFF FINDER" ); 
+    std::cout << std::endl;
+    printAlign( CENTER, "WELCOME TO DIFF FINDER" ); 
 
+    std::cout << std::left << std::setw(HORIZONTAL / 2) << "-----LHS-----" << " | " << "-----RHS-----" << std::endl;
+
+    // Example entries
+    printAligned("1) This is a very long LHS entry that spans multiple lines to demonstrate chunking", 
+                 "This is a very long RHS entry that also spans multiple lines for demonstration");
+
+    printAligned("2) Short LHS", "Short RHS");
+
+    printAligned("3) Another long LHS entry that spans multiple lines for chunking", 
+                 "Another long RHS entry to test the multi-line logic");
     return 0;
 }
 
@@ -54,13 +67,12 @@ void GetUserDesktopResolution()
 }
 
 // Get terminal width - LINUX // TODO:WINDOWS??
-void setTerminalWidth() 
+int getTerminalWidth() 
 {
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     HORIZONTAL = w.ws_col; // Terminal width in columns
-    //std::cout << "Your screen is " << HORIZONTAL << " Wide" << std::endl;
-
+    return HORIZONTAL;
 }
 
 // function to print with alignment
@@ -87,4 +99,43 @@ void printAlign( Position pos, std::string s )
     std::cout << s; // Print the actual text
 
     std::cout << std::endl; // Closing vertical border and newline 
+}
+
+// Function to print a portion of a string up to the specified width
+void printChunk(const std::string& str, int width) {
+    if (str.size() <= width) 
+    {   
+        std::cout << std::left << std::setfill(' ') << std::setw(width) << str;
+    } 
+    else 
+    {
+        std::cout << std::left << std::setfill(' ') << std::setw(width) << str.substr(0, width);
+    }
+}
+
+// Function to align and print LHS and RHS across multiple lines
+void printAligned(const std::string& lhs, const std::string& rhs) {
+    size_t lhsStart = 0, rhsStart = 0;
+    
+    const int totalWidth = HORIZONTAL;  // Total width of the output line
+    const int lhsWidth = ( HORIZONTAL / 2);   // Width allocated for LHS
+    const int rhsWidth = totalWidth - lhsWidth - 3; // Width for RHS (total - LHS - separator)
+
+    while (lhsStart < lhs.size() || rhsStart < rhs.size()) {
+        // Extract chunks of LHS and RHS up to their respective widths
+        std::string lhsChunk = lhs.substr(lhsStart, lhsWidth);
+        std::string rhsChunk = rhs.substr(rhsStart, rhsWidth);
+
+        // Print the chunks with padding and separator
+        printChunk(lhsChunk, lhsWidth);
+        std::cout << " | ";
+        printChunk(rhsChunk, rhsWidth);
+
+        // Move to the next chunk
+        lhsStart += lhsWidth;
+        rhsStart += rhsWidth;
+
+        // End the current line
+        std::cout << std::endl;
+    }
 }

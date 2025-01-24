@@ -6,9 +6,11 @@
 #include <unistd.h>
 #include <iomanip>
 
+#include "display.cpp"
+#define TIME 30000
+
 using namespace std;
 
-#define TIME 30000
 static const char* colorScheme[3] = { "\033[0m", "\033[101m", "\033[102m" }; // { RESET, RED, GREEN }
 static int maxChar = 0;
 
@@ -108,43 +110,93 @@ void processDiffPerLine ( vector<vector<HighlightedWord>>& List1, vector<vector<
     }
 
 }
-
+/*
 // function to display result
 void displayResult ( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> RHS_Words )
 { 
-    const int COLUMN_WIDTH = maxChar;
-    int current_width = 0; // To track the width of the current LHS line
-    
-    // print LHS [color scheme "RED"]
+    std::string lhsText, rhsText;
+
+    // build lhsText with [color scheme "RED"]
     for (const auto& word : LHS_Words )
     {
         if ( word.highlight )
         {
+            //lhsText += colorScheme[1] + word.word + colorScheme[0] + " ";
+            //lhsText += word.word + " ";
             cout << colorScheme[1] << word.word << colorScheme[0] << " ";
         }
         else
         {
-            cout << word.word << " ";
+            //lhsText += word.word + " ";
+            std::cout << word.word << " ";
         }
-        current_width += word.word.length() + 1; // +1 for the space
     }
     
     std::cout << "     |     ";
 
-    // print RHS [color scheme "GREEN"]
-    //cout << "-----RHS-----\n";
+    // build rhsText with  [color scheme "GREEN"]
     for (const auto& word : RHS_Words )
     {   
         if ( word.highlight )
         {
-            cout << colorScheme[2] << word.word << colorScheme[0] << " ";
+            //rhsText += colorScheme[2] + word.word + colorScheme[0] + " ";
+            //rhsText += word.word + " ";
+            std::cout << colorScheme[2] << word.word << colorScheme[0] << " ";
         }
         else
         {
-            cout << word.word << " ";
+            //rhsText += word.word + " ";
+            std::cout << word.word << " ";
         }
     }
-    cout << endl;
+    // Align and print LHS and RHS using the printAligned function
+
+    //printAligned(lhsText, rhsText);
+    std::cout << endl;
+}
+*/
+void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> RHS_Words) {
+    const int totalWidth =  getTerminalWidth();     // Total width of the terminal
+    const int sectionWidth = totalWidth / 2;        // Width of each section (LHS and RHS)
+    int lhsWidth = 0, rhsWidth = 0;                 // Current line widths for LHS and RHS
+
+    size_t lhsIndex = 0, rhsIndex = 0;
+    while (lhsIndex < LHS_Words.size() || rhsIndex < RHS_Words.size()) {
+        int lhsWidth = 0, rhsWidth = 0; // Current line widths for LHS and RHS
+
+        // LHS Section
+        while (lhsIndex < LHS_Words.size() && lhsWidth + LHS_Words[lhsIndex].word.size() + 1 <= sectionWidth) {
+            const auto& word = LHS_Words[lhsIndex];
+            if (word.highlight) {
+                std::cout << "\033[31m" << word.word << "\033[0m ";
+            } else {
+                std::cout << word.word << " ";
+            }
+            lhsWidth += word.word.size() + 1; // Word length + space
+            ++lhsIndex;
+        }
+
+        // Pad remaining space in LHS if we've exhausted words
+        std::cout << std::string(sectionWidth - lhsWidth, ' ');
+
+        // Separator
+        std::cout << " | ";
+
+        // RHS Section
+        while (rhsIndex < RHS_Words.size() && rhsWidth + RHS_Words[rhsIndex].word.size() + 1 <= sectionWidth) {
+            const auto& word = RHS_Words[rhsIndex];
+            if (word.highlight) {
+                std::cout << "\033[32m" << word.word << "\033[0m ";
+            } else {
+                std::cout << word.word << " ";
+            }
+            rhsWidth += word.word.size() + 1; // Word length + space
+            ++rhsIndex;
+        }
+
+        // Pad remaining space in RHS if we've exhausted words
+        std::cout << std::string(sectionWidth - rhsWidth, ' ') << std::endl;
+    }
 }
 
 // function to display differences per line
@@ -154,7 +206,7 @@ void processDisplay ( vector<vector<HighlightedWord>>& List1, vector<vector<High
     int line = 1;
     for ( int i = 0; i < min ( List1.size() , List2.size() ); i++ )
     {
-        std::cout << line++ << ") ";
+        //std::cout << line++ << ") ";
         displayResult ( List1[i], List2[i] );
     }
     
