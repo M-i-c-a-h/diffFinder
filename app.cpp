@@ -21,7 +21,7 @@ int main()
     printAlign( CENTER, "WELCOME TO DIFF FINDER" ); 
 
     std::cout << std::left << std::setw(HORIZONTAL / 2) << "-----LHS-----" << " | " << "-----RHS-----" << std::endl;
-
+/*
     // Example entries
     printAligned("1) This is a very long LHS entry that spans multiple lines to demonstrate chunking", 
                  "This is a very long RHS entry that also spans multiple lines for demonstration");
@@ -30,6 +30,7 @@ int main()
 
     printAligned("3) Another long LHS entry that spans multiple lines for chunking", 
                  "Another long RHS entry to test the multi-line logic");
+*/
     
     vector<string> List1, List2;
     string input;

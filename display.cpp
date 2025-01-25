@@ -14,6 +14,7 @@ enum Position{ LEFT, CENTER, RIGHT };
 
 void GetUserDesktopResolution();
 int getTerminalWidth();
+void setTerminalWidth();
 void printAlign( Position pos, std::string s );
 void printChunk(const std::string& str, int width);
 void printAligned(const std::string& lhs, const std::string& rhs);
@@ -21,7 +22,7 @@ void printAligned(const std::string& lhs, const std::string& rhs);
 void startup()
 {
     //GetUserDesktopResolution();
-    //setTerminalWidth();
+    setTerminalWidth();
 }
 
 // create a single Horizontal border [---------] with ternimal size
@@ -67,11 +68,16 @@ void GetUserDesktopResolution()
 }
 
 // Get terminal width - LINUX // TODO:WINDOWS??
-int getTerminalWidth() 
+void setTerminalWidth() 
 {
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     HORIZONTAL = w.ws_col; // Terminal width in columns
+}
+
+// Get terminal width - LINUX // TODO:WINDOWS??
+int getTerminalWidth() 
+{
     return HORIZONTAL;
 }
 

@@ -1,6 +1,10 @@
 # executable
 runner
 display.out
+*.out
 
 # vim file
 *.un~
+
+# test files
+*.txt

@@ -168,7 +168,7 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
         while (lhsIndex < LHS_Words.size() && lhsWidth + LHS_Words[lhsIndex].word.size() + 1 <= sectionWidth) {
             const auto& word = LHS_Words[lhsIndex];
             if (word.highlight) {
-                std::cout << "\033[31m" << word.word << "\033[0m ";
+                std::cout << colorScheme[1] << word.word << "\033[0m ";
             } else {
                 std::cout << word.word << " ";
             }
@@ -177,7 +177,9 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
         }
 
         // Pad remaining space in LHS if we've exhausted words
-        std::cout << std::string(sectionWidth - lhsWidth, ' ');
+        if (lhsWidth < sectionWidth) {
+            std::cout << std::string(sectionWidth - lhsWidth, ' ');
+        }
 
         // Separator
         std::cout << " | ";
@@ -186,7 +188,7 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
         while (rhsIndex < RHS_Words.size() && rhsWidth + RHS_Words[rhsIndex].word.size() + 1 <= sectionWidth) {
             const auto& word = RHS_Words[rhsIndex];
             if (word.highlight) {
-                std::cout << "\033[32m" << word.word << "\033[0m ";
+                std::cout << colorScheme[2] << word.word << "\033[0m ";
             } else {
                 std::cout << word.word << " ";
             }
@@ -195,8 +197,13 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
         }
 
         // Pad remaining space in RHS if we've exhausted words
-        std::cout << std::string(sectionWidth - rhsWidth, ' ') << std::endl;
-    }
+        if (rhsWidth < sectionWidth) {
+            std::cout << std::string(sectionWidth - rhsWidth, ' ');
+        }
+
+        // Move to the next line
+        std::cout << std::endl;
+    } 
 }
 
 // function to display differences per line
