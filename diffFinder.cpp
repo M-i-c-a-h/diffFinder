@@ -157,11 +157,12 @@ void displayResult ( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> 
 */
 void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> RHS_Words) {
     const int totalWidth =  getTerminalWidth();     // Total width of the terminal
-    const int sectionWidth = totalWidth / 2;        // Width of each section (LHS and RHS)
+    const int sectionWidth = ( totalWidth / 2 ) - 4;        // Width of each section (LHS and RHS)
     int lhsWidth = 0, rhsWidth = 0;                 // Current line widths for LHS and RHS
-
+    std::cout << "Total Width: " << totalWidth << " Section Width: " << sectionWidth << std::endl;
     size_t lhsIndex = 0, rhsIndex = 0;
-    while (lhsIndex < LHS_Words.size() || rhsIndex < RHS_Words.size()) {
+    while (lhsIndex < LHS_Words.size() || rhsIndex < RHS_Words.size()) 
+    {
         int lhsWidth = 0, rhsWidth = 0; // Current line widths for LHS and RHS
 
         // LHS Section
@@ -200,9 +201,16 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
         if (rhsWidth < sectionWidth) {
             std::cout << std::string(sectionWidth - rhsWidth, ' ');
         }
-
+        size_t currentWidth = lhsWidth + rhsWidth;
+        if ( currentWidth < totalWidth )
+        {
+            std::cout << std::string( totalWidth - currentWidth, ' ');
+        }
         // Move to the next line
-        std::cout << std::endl;
+        if ( lhsIndex == LHS_Words.size() )
+        {
+            std::cout << std::endl;
+        }
     } 
 }
 
