@@ -17,7 +17,7 @@ int main()
 
     horizontalBorder(); 
     horizontalBorder(); 
-    std::cout << std::endl;
+//    std::cout << std::endl;
     printAlign( CENTER, "WELCOME TO DIFF FINDER" ); 
 
     std::cout << std::left << std::setw(HORIZONTAL / 2) << "-----LHS-----" << " | " << "-----RHS-----" << std::endl;
@@ -81,7 +81,7 @@ void processData ( const string& LHS, const string& RHS )
 
 void processData1 ( const vector<string>& LHS, const vector<string>& RHS )
 {
-    std::cout << "Analzing difference ........\n\n";
+    std::cout << "Analzing difference ........\n";
 
     vector<vector<HighlightedWord>> _lhs , _rhs;
     

@@ -109,57 +109,15 @@ void processDiffPerLine ( vector<vector<HighlightedWord>>& List1, vector<vector<
         findDifference ( empty, List2[i] );
     }
 
-}
-/*
-// function to display result
-void displayResult ( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> RHS_Words )
-{ 
-    std::string lhsText, rhsText;
-
-    // build lhsText with [color scheme "RED"]
-    for (const auto& word : LHS_Words )
-    {
-        if ( word.highlight )
-        {
-            //lhsText += colorScheme[1] + word.word + colorScheme[0] + " ";
-            //lhsText += word.word + " ";
-            cout << colorScheme[1] << word.word << colorScheme[0] << " ";
-        }
-        else
-        {
-            //lhsText += word.word + " ";
-            std::cout << word.word << " ";
-        }
-    }
-    
-    std::cout << "     |     ";
-
-    // build rhsText with  [color scheme "GREEN"]
-    for (const auto& word : RHS_Words )
-    {   
-        if ( word.highlight )
-        {
-            //rhsText += colorScheme[2] + word.word + colorScheme[0] + " ";
-            //rhsText += word.word + " ";
-            std::cout << colorScheme[2] << word.word << colorScheme[0] << " ";
-        }
-        else
-        {
-            //rhsText += word.word + " ";
-            std::cout << word.word << " ";
-        }
-    }
-    // Align and print LHS and RHS using the printAligned function
-
     //printAligned(lhsText, rhsText);
     std::cout << endl;
 }
-*/
+// function to display LHS and RHS words with linw wraping
 void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> RHS_Words) {
     const int totalWidth =  getTerminalWidth();     // Total width of the terminal
     const int sectionWidth = ( totalWidth / 2 ) - 4;        // Width of each section (LHS and RHS)
     int lhsWidth = 0, rhsWidth = 0;                 // Current line widths for LHS and RHS
-    std::cout << "Total Width: " << totalWidth << " Section Width: " << sectionWidth << std::endl;
+    //std::cout << "Total Width: " << totalWidth << " Section Width: " << sectionWidth << std::endl;
     size_t lhsIndex = 0, rhsIndex = 0;
     while (lhsIndex < LHS_Words.size() || rhsIndex < RHS_Words.size()) 
     {
@@ -204,7 +162,7 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
         size_t currentWidth = lhsWidth + rhsWidth;
         if ( currentWidth < totalWidth )
         {
-            std::cout << std::string( totalWidth - currentWidth, ' ');
+            std::cout << std::string( 5, ' ');
         }
         // Move to the next line
         if ( lhsIndex == LHS_Words.size() )
