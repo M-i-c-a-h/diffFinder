@@ -91,10 +91,10 @@ void printAlign( Position pos, std::string s )
         spaces = ( HORIZONTAL - s.size() - 2) / 2; 
         break;
       case RIGHT  : 
-        spaces =   HORIZONTAL - s.size() - 3; 
+        spaces = (  HORIZONTAL / 4 ) - s.size() - 3; // 3 => separator  
         break;
       case LEFT   : 
-        std::cout << " ";
+        spaces = (  HORIZONTAL / 4 ) - s.size() - 3; // 3 => separator  
         break;
     }
     
@@ -104,7 +104,7 @@ void printAlign( Position pos, std::string s )
 
     std::cout << s; // Print the actual text
 
-    std::cout << std::endl; // Closing vertical border and newline 
+    //std::cout << std::endl; // Closing vertical border and newline 
 }
 
 // Function to print a portion of a string up to the specified width
@@ -121,6 +121,24 @@ void printChunk(const std::string& str, int width) {
 
 // Function to align and print LHS and RHS across multiple lines
 void printAligned(const std::string& lhs, const std::string& rhs) {
+    
+    int spaces = (  HORIZONTAL / 4 ) - lhs.size() - 3; // 3 => separator  
+        
+    if (spaces > 0) {
+        std::cout << std::string(spaces, ' '); // Print spaces before the text
+    }
+
+    std::cout << lhs; // Print the actual text
+
+     spaces = (  HORIZONTAL / 4 ) - rhs.size() - 3; // 3 => separator  
+        
+    if (spaces > 0) {
+        std::cout << std::string(spaces, ' '); // Print spaces before the text
+    }
+
+    std::cout << rhs; // Print the actual text
+
+    /*
     size_t lhsStart = 0, rhsStart = 0;
     
     const int totalWidth = HORIZONTAL;  // Total width of the output line
@@ -144,4 +162,6 @@ void printAligned(const std::string& lhs, const std::string& rhs) {
         // End the current line
         std::cout << std::endl;
     }
+    */
+
 }

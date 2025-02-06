@@ -137,7 +137,7 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
 
         // Pad remaining space in LHS if we've exhausted words
         if (lhsWidth < sectionWidth) {
-            std::cout << std::string(sectionWidth - lhsWidth, ' ');
+            std::cout << std::string(sectionWidth - lhsWidth, 'l');
         }
 
         // Separator
@@ -157,12 +157,12 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
 
         // Pad remaining space in RHS if we've exhausted words
         if (rhsWidth < sectionWidth) {
-            std::cout << std::string(sectionWidth - rhsWidth, ' ');
+            std::cout << std::string(sectionWidth - rhsWidth, 'r');
         }
         size_t currentWidth = lhsWidth + rhsWidth;
         if ( currentWidth < totalWidth )
         {
-            std::cout << std::string( 5, ' ');
+            std::cout << std::string( 6, 'c');
         }
         // Move to the next line
         if ( lhsIndex == LHS_Words.size() )
@@ -175,7 +175,6 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
 // function to display differences per line
 void processDisplay ( vector<vector<HighlightedWord>>& List1, vector<vector<HighlightedWord>>& List2 )
 {   
-    cout << "-----LHS-----" <<" | " << "-----RHS-----\n";
     int line = 1;
     for ( int i = 0; i < min ( List1.size() , List2.size() ); i++ )
     {
