@@ -116,8 +116,7 @@ void processDiffPerLine ( vector<vector<HighlightedWord>>& List1, vector<vector<
 void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> RHS_Words) {
     const int totalWidth =  getTerminalWidth();     // Total width of the terminal
     const int sectionWidth = ( totalWidth / 2 ) - 4;        // Width of each section (LHS and RHS)
-    int lhsWidth = 0, rhsWidth = 0;                 // Current line widths for LHS and RHS
-    //std::cout << "Total Width: " << totalWidth << " Section Width: " << sectionWidth << std::endl;
+    size_t lhsWidth = 0, rhsWidth = 0;                 // Current line widths for LHS and RHS
     size_t lhsIndex = 0, rhsIndex = 0;
     while (lhsIndex < LHS_Words.size() || rhsIndex < RHS_Words.size()) 
     {

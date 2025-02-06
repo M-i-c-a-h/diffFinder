@@ -68,7 +68,9 @@ void processData1 ( const vector<string>& LHS, const vector<string>& RHS )
 {
     std::cout << "Analzing difference ........\n";
     std::cout << "Result:\n";
-    printAligned ( "     LHS     ", "     RHS     " );
+    std::cout << std::setfill('-') << std::setw(HORIZONTAL) << "-";
+    printAligned ( "LHS", "RHS" );
+    std::cout << std::setfill('-') << std::setw(HORIZONTAL) << "-";
 
     vector<vector<HighlightedWord>> _lhs , _rhs;
     
@@ -78,6 +80,7 @@ void processData1 ( const vector<string>& LHS, const vector<string>& RHS )
     processDiffPerLine ( _lhs, _rhs );
     processDisplay ( _lhs, _rhs );
 
+    std::cout << std::setfill('-') << std::setw(HORIZONTAL) << "-";
 }
 
 void displayWelcomeMessage()

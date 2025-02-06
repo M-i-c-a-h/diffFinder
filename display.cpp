@@ -122,22 +122,16 @@ void printChunk(const std::string& str, int width) {
 // Function to align and print LHS and RHS across multiple lines
 void printAligned(const std::string& lhs, const std::string& rhs) {
     
-    int spaces = (  HORIZONTAL / 4 ) - lhs.size() - 3; // 3 => separator  
-        
-    if (spaces > 0) {
-        std::cout << std::string(spaces, ' '); // Print spaces before the text
-    }
-
+    int spaces = 20;  
+    std::cout << std::string(spaces, ' '); // Print spaces before the text
     std::cout << lhs; // Print the actual text
 
-     spaces = (  HORIZONTAL / 4 ) - rhs.size() - 3; // 3 => separator  
-        
-    if (spaces > 0) {
-        std::cout << std::string(spaces, ' '); // Print spaces before the text
-    }
+    size_t sectionWidth = HORIZONTAL / 2;
+    std::cout << std::string( sectionWidth - spaces - lhs.size() , ' '); // Print spaces before the text
 
+    std::cout << std::string(spaces, ' '); // Print spaces before the text
     std::cout << rhs; // Print the actual text
-
+    std::cout << std::endl;
     /*
     size_t lhsStart = 0, rhsStart = 0;
     
