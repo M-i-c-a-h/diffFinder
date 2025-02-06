@@ -137,7 +137,7 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
 
         // Pad remaining space in LHS if we've exhausted words
         if (lhsWidth < sectionWidth) {
-            std::cout << std::string(sectionWidth - lhsWidth, 'l');
+            std::cout << std::string(sectionWidth - lhsWidth, ' ');
         }
 
         // Separator
@@ -157,13 +157,13 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
 
         // Pad remaining space in RHS if we've exhausted words
         if (rhsWidth < sectionWidth) {
-            std::cout << std::string(sectionWidth - rhsWidth, 'r');
+            std::cout << std::string(sectionWidth - rhsWidth, ' ');
         }
-        size_t currentWidth = lhsWidth + rhsWidth;
-        if ( currentWidth < totalWidth )
-        {
-            std::cout << std::string( 6, 'c');
-        }
+
+        // Pad remaining space in current width if we've not filled width
+        size_t currentWidth = sectionWidth * 2;
+        std::cout << std::string( totalWidth - currentWidth - 3, ' ');  // -3 for separator (' | ')
+
         // Move to the next line
         if ( lhsIndex == LHS_Words.size() )
         {

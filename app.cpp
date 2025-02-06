@@ -67,6 +67,7 @@ void processData ( const string& LHS, const string& RHS )
 void processData1 ( const vector<string>& LHS, const vector<string>& RHS )
 {
     std::cout << "Analzing difference ........\n";
+    std::cout << "Result:\n";
     printAligned ( "     LHS     ", "     RHS     " );
 
     vector<vector<HighlightedWord>> _lhs , _rhs;
