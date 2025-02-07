@@ -164,7 +164,7 @@ void displayResult( vector<HighlightedWord> LHS_Words, vector<HighlightedWord> R
         std::cout << std::string( totalWidth - currentWidth - 3, ' ');  // -3 for separator (' | ')
 
         // Move to the next line
-        if ( lhsIndex == LHS_Words.size() )
+        if ( lhsIndex == LHS_Words.size() || LHS_Words.empty() )
         {
             std::cout << std::endl;
         }
